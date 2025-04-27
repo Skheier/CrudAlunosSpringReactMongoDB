@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
 
 import './Stylus.css';
 
-const API_URL = "http://localhost:8081/";
+const API_URL = "http://localhost:8081";
 
 export default function App() {
   const [users, setUsers] = useState([]);
-  const [form, setForm] = useState({nome: "", telefone: "" , email: "", endereco: ""}); /*Não precisa do campo "id"   const [form, setForm] = useState({nome: "", telefone: "" , email: "", endereco: ""}); */
+  const [form, setForm] = useState({nome: "", telefone: "" , email: "", endereco: ""}); 
   const [errors = [], setErrors] = useState([]);
   const [submitModal, setSubmitModal] = useState(false);
-  const [deleteDialog, serDeleteDialog] = useState(false);
 
   // Carregar usuários da API ao iniciar
   useEffect(() => {
-    fetch(`${API_URL}getAll`)
+    fetch(`${API_URL}/getAll`)
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Erro ao carregar usuários:", error));
@@ -41,14 +39,14 @@ export default function App() {
   const handleSubmit = () => {
 
     if (!form.nome || !form.telefone || !form.email || !form.endereco) {
-      errors.push("nome");{/* style={{borderColor: errors.includes("nome") ? "red" : "transparent" }} */}
+      errors.push("nome");
       alert("Favor preencher todos os campos...");
       return;
     }
     
     if (form.id) {
       // Atualizar usuário (PUT)
-      fetch(`${API_URL}edit/${form.id}`, {
+      fetch(`${API_URL}/edit/${form.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -60,11 +58,20 @@ export default function App() {
         })
         .catch((error) => console.error("Erro ao atualizar usuário:", error));
     } else {
+      
+      //precaulção usa um form que com certeza não tem o campo ID.
+      const map = {
+        nome: form.nome,
+        telefone: form.telefone,
+        email: form.email,
+        endereco: form.endereco,
+      }
+      
       // Criar novo usuário (POST)}
-      fetch(`${API_URL}new`, {
+      fetch(`${API_URL}/new`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(map),
       })
         .then((res) => res.json())
         .then((newUser) => {
@@ -81,6 +88,7 @@ export default function App() {
     clear();
     setSubmitModal(true);
   }
+
   // Preencher formulário ao editar usuário
   const handleEdit = (user) => {
     setForm(user);
@@ -89,7 +97,7 @@ export default function App() {
 
   // Excluir usuário (DELETE)
   const handleDelete = (id) => {
-    fetch(`${API_URL}delete/${id}`, { method: "DELETE" })
+    fetch(`${API_URL}/delete/${id}`, { method: "DELETE" })
       .then(() => setUsers(users.filter((user) => user.id !== id)))
       .catch((error) => console.error("Erro ao excluir usuário:", error));
   };
@@ -108,8 +116,8 @@ export default function App() {
             <button onClick={toggleSubmitModal} className="closeSubmitModal">X</button>
             <h1 className="modalSubmitTitle">{form.id ? "Atualizar" : "New Aluno"}</h1>
             
-            <input name="id" type="hidden" value={form.id} onChange={handleChange} placeholder="id" className="inputFildo" />{/* type="hidden" seria uma boa... Não sei se deixo aqui ou não, a aplicação funcionaria engual */}
-            <input name="nome" type="text" value={form.nome} onChange={handleChange} placeholder="Nome" className="inputFilds" style={{borderColor: errors.includes('nome') ? "red" : "transparent" }}/>
+            <input name="id" type="hidden" value={form.id} onChange={handleChange} placeholder="id" className="inputFildo" />
+            <input name="nome" type="text" value={form.nome} onChange={handleChange} placeholder="Nome" className="inputFilds"/>
             <input name="telefone" type="tel" value={form.telefone} onChange={handleChange} placeholder="Telefone" className="inputFilds" />
             <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="E-mail" className="inputFilds" />
             <input name="endereco" type="text" value={form.endereco} onChange={handleChange} placeholder="Endereco" className="inputFilds" />
