@@ -58,8 +58,7 @@ export default function App() {
         })
         .catch((error) => console.error("Erro ao atualizar usuário:", error));
     } else {
-      
-      //precaulção usa um form que com certeza não tem o campo ID.
+      // Por precaução usa um form que com certeza não tem o campo ID.
       const map = {
         nome: form.nome,
         telefone: form.telefone,
