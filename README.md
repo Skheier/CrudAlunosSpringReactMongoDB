@@ -9,3 +9,7 @@ setup:
 
 - npm install - pra baixar a
 - npm start - para abrir a aplicação
+
+
+Requisitos Backend:
+- Conexão mongo db no port padrão
