@@ -1,5 +1,5 @@
 
-# Set up Frontend
+# Setup Frontend
 
 Requisitos:
 
