@@ -48,7 +48,7 @@ E o setup está completo
 
 
 # Configurações Extras:
-Caso necessite alter as portas utilizadas pelo projeto use esta tabela de comparação:
+Caso necessite alter as portas utilizadas pelo projeto use esta tabela de comparação, alterou em um, altere no outro:
 
 | Port          |Local no Backend                 | Local no Frontend | 
 |---------------|---------------------------------|-------------------|
