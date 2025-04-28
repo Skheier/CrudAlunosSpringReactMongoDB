@@ -53,7 +53,7 @@ Caso necessite alter as portas utilizadas pelo projeto use esta tabela de compar
 | Port          |Local no Backend                 | Local no Frontend | 
 |---------------|---------------------------------|-------------------|
 | 8081          | resorces/application.properties | src/App.js        |
-| 3000          | --                              | .env              | 
+| 3000          | ---                             | .env              | 
 | 27017         | resorces/application.properties | ---               |
 
 - Deve-se criar uma outra conexão no MongoDB caso tenha alterado o port da mesma no application.properties.
