@@ -13,7 +13,7 @@ Feita em Spring/Java 17.
     - MongoDb
     - Swagger
 
-### Requsitos: 
+### Requisitos: 
 
 - Java 17 (ou superior) instalado.
 - Maven.
